@@ -116,7 +116,9 @@ The `.claude/commands/` directory contains slash commands for Claude Code:
 | `/review` | code-review-and-quality |
 | `/code-simplify` | code-simplification |
 | `/ship` | shipping-and-launch |
+| `/constraints` | constraint-driven-development |
 | `/webperf` | web-performance-auditor (specialist agent, web apps only) |
+| `/pr-feedback` | pr-feedback-responder (specialist agent, triages PR review comments) |
 
 > **Note:** When installed as a Claude Code plugin you may see a warning like
 > _"Default commands/ folder is ignored because the manifest sets 'commands'"_.
