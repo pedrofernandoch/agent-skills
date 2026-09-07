@@ -8,6 +8,7 @@ Specialist personas that play a single role with a single perspective. Each pers
 | [security-auditor](../agents/security-auditor.md) | Security Engineer | Vulnerability detection, OWASP-style audit |
 | [test-engineer](../agents/test-engineer.md) | QA Engineer | Test strategy, coverage analysis, Prove-It pattern |
 | [web-performance-auditor](../agents/web-performance-auditor.md) | Web Performance Engineer | Core Web Vitals audit, loading/rendering/network analysis |
+| [pr-feedback-responder](../agents/pr-feedback-responder.md) | Staff Engineer | Triaging PR review comments, applying valid ones, drafting replies |
 
 ## How personas relate to skills and commands
 
@@ -30,6 +31,7 @@ Pick this when you want one perspective on the current change and the user is in
 - "Are there security issues in `auth.ts`?" → invoke `security-auditor` directly
 - "What tests are missing for the checkout flow?" → invoke `test-engineer` directly
 - "Audit Core Web Vitals on the product page" → invoke `web-performance-auditor` directly
+- "Go through the review comments on PR 412" → invoke `pr-feedback-responder` directly
 
 ### Slash command (single persona behind it)
 Pick this when there's a repeatable workflow you'd otherwise re-explain every time.
@@ -37,6 +39,7 @@ Pick this when there's a repeatable workflow you'd otherwise re-explain every ti
 - `/review` → wraps `code-reviewer` with the project's review skill
 - `/test` → wraps `test-engineer` with TDD skill
 - `/webperf` → wraps `web-performance-auditor` for performance-focused audits on web apps
+- `/pr-feedback` → wraps `pr-feedback-responder` to triage and answer review comments on a PR
 
 ### Slash command (orchestrator — fan-out)
 Pick this only when **independent** investigations can run in parallel and produce reports that a single agent then merges.
