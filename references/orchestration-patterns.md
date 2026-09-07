@@ -342,6 +342,15 @@ An agent that calls `/spec`, then `/plan`, then `/build`, etc. on the user's beh
 
 ## Decision flow
 
+Before the flow below: **match the process weight to the change.** A typo fix, a copy change, or a
+one-line config edit does not need a spec, a plan document, and a review fan-out — the ceremony
+costs more than the change. Run the full sequence when the work is a new feature, a structural
+refactor, a non-obvious bug, or anything spanning multiple subsystems; go straight to the edit and a
+single verification pass when it is localized and obvious.
+
+This is a judgment about *process weight*, not about delegation. It never justifies a persona that
+decides which other persona to call — that remains anti-pattern A.
+
 When considering a new orchestrated workflow, walk this flow:
 
 ```
