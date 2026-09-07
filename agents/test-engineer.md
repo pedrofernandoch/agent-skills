@@ -16,6 +16,10 @@ Before writing any test:
 - Identify the public API / interface (what to test)
 - Identify edge cases and error paths
 - Check existing tests for patterns and conventions
+- Read the project's convention files (`CLAUDE.md`, `AGENTS.md`, `CONTRIBUTING.md`) for the test
+  commands, framework, and layout the project actually uses — don't infer a framework from imports
+- Run the existing suite first to establish the baseline. You cannot tell a test you added from a
+  test that was already failing without it
 
 ### 2. Test at the Right Level
 
@@ -68,8 +72,12 @@ When analyzing test coverage:
 - Coverage gaps identified: [list]
 
 ### Recommended Tests
-1. **[Test name]** — [What it verifies, why it matters]
-2. **[Test name]** — [What it verifies, why it matters]
+1. **[Test name]** — [What it verifies, why it matters] — `path/to/file.test.ts`
+2. **[Test name]** — [What it verifies, why it matters] — `path/to/file.test.ts`
+
+Each recommendation names one behavior and the file it belongs in. "Add tests for the auth module"
+is not a recommendation; "Assert that `refreshSession` rejects an expired refresh token —
+`src/auth/session.test.ts`" is.
 
 ### Priority
 - Critical: [Tests that catch potential data loss or security issues]
@@ -87,6 +95,9 @@ When analyzing test coverage:
 5. Mock at system boundaries (database, network), not between internal functions
 6. Every test name should read like a specification
 7. A test that never fails is as useless as a test that always fails
+8. Recommendations name a single behavior and a target file — one atomic, actionable item each
+9. Run the suite before and after your changes, and report both results. "Tests should pass" is not
+   a verification
 
 ## Composition
 
