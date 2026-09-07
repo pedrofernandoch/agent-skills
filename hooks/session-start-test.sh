@@ -11,7 +11,8 @@ if command -v jq >/dev/null 2>&1; then
   has_jq=1
 fi
 
-payload="$(bash hooks/session-start.sh)"
+REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+payload="$(bash "$REPO_ROOT/hooks/session-start.sh")"
 printf '%s' "$payload" > "$tmp_payload"
 
 HAS_JQ="$has_jq" PAYLOAD_PATH="$tmp_payload" node <<'NODE'
@@ -20,25 +21,31 @@ const fs = require('fs');
 const payload = JSON.parse(fs.readFileSync(process.env.PAYLOAD_PATH, 'utf8'));
 const hasJq = process.env.HAS_JQ === '1';
 
+const out = payload.hookSpecificOutput;
+
+if (!out) {
+  throw new Error('payload is missing hookSpecificOutput');
+}
+
+if (out.hookEventName !== 'SessionStart') {
+  throw new Error(`expected hookEventName SessionStart, got ${out.hookEventName}`);
+}
+
+if (typeof out.additionalContext !== 'string') {
+  throw new Error('hookSpecificOutput.additionalContext must be a string');
+}
+
 if (hasJq) {
-  if (payload.priority !== 'IMPORTANT') {
-    throw new Error(`expected IMPORTANT priority, got ${payload.priority}`);
+  if (!out.additionalContext.includes('agent-skills loaded.')) {
+    throw new Error('additionalContext is missing startup preface');
   }
 
-  if (!payload.message.includes('agent-skills loaded.')) {
-    throw new Error('message is missing startup preface');
-  }
-
-  if (!payload.message.includes('# Using Agent Skills')) {
-    throw new Error('message is missing using-agent-skills content');
+  if (!out.additionalContext.includes('# Using Agent Skills')) {
+    throw new Error('additionalContext is missing using-agent-skills content');
   }
 } else {
-  if (payload.priority !== 'INFO') {
-    throw new Error(`expected INFO priority when jq is missing, got ${payload.priority}`);
-  }
-
-  if (!payload.message.includes('jq is required')) {
-    throw new Error('message is missing jq fallback guidance');
+  if (!out.additionalContext.includes('jq is required')) {
+    throw new Error('additionalContext is missing jq fallback guidance');
   }
 }
 
