@@ -348,6 +348,8 @@ For triaging `npm audit` findings and supply-chain risk (typosquatting, compromi
 ```
 ## See Also
 
+- For architecture, type safety, error handling, side effects, data access, and concurrency
+  checks, see `../../references/code-quality-checklist.md`
 - For detailed security review guidance, see `../../references/security-checklist.md`
 - For performance review checks, see `../../references/performance-checklist.md`
 

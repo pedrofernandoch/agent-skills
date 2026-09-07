@@ -329,3 +329,9 @@ After completing a simplification pass:
 - [ ] No error handling was removed or weakened
 - [ ] No dead code was left behind (unused imports, unreachable branches)
 - [ ] A teammate or review agent would approve the change as a net improvement
+
+## See Also
+
+- For the architectural and hygiene checks behind these principles (SOLID, separation of
+  concerns, modularity, type safety, lint suppressions, error handling, side effects,
+  constants, data access, concurrency), see `../../references/code-quality-checklist.md`
