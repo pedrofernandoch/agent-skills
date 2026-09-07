@@ -21,6 +21,7 @@ Apply this to every change before declaring it done.
 ### Correctness
 - [ ] All acceptance criteria for the task are met
 - [ ] Code runs and behaves as intended, verified at runtime, not just compiled or typechecked
+- [ ] Type checking passes where the project uses a type system, with no new suppressions
 - [ ] New behavior is covered by tests that fail without the change and pass with it
 - [ ] Existing tests still pass; no regressions introduced
 - [ ] Edge cases and error paths are handled, not just the happy path
@@ -31,8 +32,10 @@ Apply this to every change before declaring it done.
 - [ ] No dead code, debug output, or commented-out blocks left behind
 - [ ] Changes are scoped to the task; no unrelated refactors snuck in
 - [ ] Linting and formatting pass
+- [ ] No unnecessary dependency introduced; existing project or platform capabilities were checked first
+- [ ] No unnecessary architectural complexity introduced
 
-The depth behind these items lives in `code-review-and-quality` (the five-axis review) and `code-simplification` (reducing complexity without changing behavior).
+The depth behind these items lives in `code-review-and-quality` (the five-axis review), `code-simplification` (reducing complexity without changing behavior), and [code-quality-checklist.md](code-quality-checklist.md) (architecture, type safety, error handling, side effects, data access, concurrency).
 
 ### Integration
 - [ ] Change works with the rest of the system, not just in isolation
@@ -46,6 +49,7 @@ The depth behind these items lives in `code-review-and-quality` (the five-axis r
 
 ### Ship-readiness
 - [ ] Security implications reviewed for any untrusted input, auth, or data handling (see `security-and-hardening`)
+- [ ] Accessibility requirements satisfied for any UI change (see [accessibility-checklist.md](accessibility-checklist.md))
 - [ ] Observability in place for new critical paths (logs, metrics, traces) (see `observability-and-instrumentation`)
 - [ ] Rollback path exists for anything risky (see `shipping-and-launch`)
 - [ ] The human has reviewed and approved before merge or deploy
