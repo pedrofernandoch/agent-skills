@@ -208,6 +208,32 @@ POTENTIAL CONCERNS:
 
 This pattern catches wrong assumptions early and gives reviewers a clear map of the change. The "DIDN'T TOUCH" section is especially important — it shows you exercised scope discipline and didn't go on an unsolicited renovation.
 
+## Opening a Pull Request
+
+The repository usually already specifies how it wants PRs to look. Read these before writing one,
+rather than inventing a format:
+
+| Source | What it tells you |
+|---|---|
+| `CONTRIBUTING.md` | Branch naming, commit prefixes, required checks, review expectations |
+| `.github/pull_request_template.md` | The body structure the PR description must fill in |
+| `.github/PULL_REQUEST_TEMPLATE/` | Multiple templates — pick the one matching the change type |
+| Recent merged PRs (`gh pr list --state merged`) | The convention actually practiced, which may be narrower than the documented one |
+| `.github/workflows/` | The checks that will run, so you can run them locally first |
+
+Then:
+
+- [ ] Branch name follows the documented convention
+- [ ] Every section of the PR template is filled in — a template with placeholder text left in it
+      reads as a PR nobody proofread
+- [ ] The description says what changed and why, and links the issue or spec it implements
+- [ ] The Change Summary above (including "things I didn't touch") informs the description
+- [ ] Anything the reviewer should look at first is called out explicitly
+- [ ] CI checks pass locally before you push
+
+If the repository has no template, use the Change Summary format above as the PR body — it already
+carries what a reviewer needs.
+
 ## Pre-Commit Hygiene
 
 Before every commit:

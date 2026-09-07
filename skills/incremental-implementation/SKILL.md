@@ -180,6 +180,29 @@ Each increment should be independently revertable:
 - Database migrations should have corresponding rollback migrations
 - Avoid deleting something in one commit and replacing it in the same commit — separate them
 
+## Keep the Plan as the State
+
+When working from a plan document, the plan is the state machine — not your memory of it. After
+each increment, check the completed step off (`- [ ]` → `- [x]`) before moving on.
+
+This is what makes the work resumable. A session that ends mid-plan, a context compaction, or a
+handoff to another agent all recover cleanly from a plan whose checkboxes are current, and recover
+badly from one where the last five completed steps still look pending.
+
+## Clean Up What You Obsoleted
+
+A change that replaces something leaves debris. Before declaring an increment done, sweep for what
+your own change made unnecessary:
+
+- Imports no longer used by the file you edited
+- Constants, types, and helpers whose only caller you just deleted or rewrote
+- The old code path, once the new one is wired up and tested
+- Feature flags and compatibility shims whose migration has completed
+- Tests asserting behavior that no longer exists
+
+This is narrower than general dead-code hunting: the scope is what *this increment* orphaned, not
+everything unused in the repository. Removing that is a separate task with its own diff.
+
 ## Working with Agents
 
 When directing an agent to implement incrementally:
@@ -207,6 +230,8 @@ After each increment, verify with the repository's own commands (see the test-dr
 - [ ] Linting passes (the repository's lint command)
 - [ ] The new functionality works as expected
 - [ ] The change is committed with a descriptive message
+- [ ] The plan is updated: the completed step is checked off (`- [ ]` → `- [x]`)
+- [ ] Code the change made obsolete is gone (see below)
 
 **Note:** Run each verification command after a change that could affect it. After a successful run, don't repeat the same command unless the code has changed since — re-running on unchanged code adds no information.
 

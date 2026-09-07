@@ -37,7 +37,31 @@ Structure context from most persistent to most transient:
 
 ### Level 1: Rules Files
 
-Create a rules file that persists across sessions. This is the highest-leverage context you can provide.
+**First, find out what already exists.** Projects accumulate context files from whichever tools
+their contributors use, and writing a new one on top of three existing ones creates a fourth source
+of truth rather than a single one. Before authoring anything, search the root, `.github/`, `.agent/`,
+and `docs/` for:
+
+| File | Written for |
+|---|---|
+| `CLAUDE.md`, `AGENTS.md` | Claude Code and agent harnesses |
+| `ARCHITECTURE.md`, `CODEBASE_CONTEXT.md` | Humans and agents alike |
+| `CONTRIBUTING.md` | Contributors — often holds the real commands and conventions |
+| `.cursorrules`, `.windsurfrules`, `.clinerules` | Other AI editors |
+| `COPILOT_INSTRUCTIONS.md`, `.github/copilot-instructions.md` | GitHub Copilot |
+| `README.md`, ADRs under `docs/` | The stated design intent |
+
+Read what you find *before* scanning source. It tells you what the project believes about itself and
+gives your code search a shape.
+
+**Then verify against the source.** Documented conventions rot — a rules file describing a state
+management approach the codebase migrated off two quarters ago is worse than no rules file, because
+it is confidently wrong. Treat these documents as claims and the code as evidence. Where they
+disagree, follow the code and fix the document.
+
+If a suitable file already exists, extend it. Create a new one only when nothing covers the ground.
+
+A rules file that persists across sessions is the highest-leverage context you can provide.
 
 **CLAUDE.md** (for Claude Code):
 ```markdown

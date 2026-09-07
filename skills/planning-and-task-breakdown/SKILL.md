@@ -100,8 +100,28 @@ Each task follows this structure, whether it lands in the markdown task list or 
 - `src/path/to/file.ts`
 - `tests/path/to/test.ts`
 
+**Functions/methods to add or change:** `createAvatar()`, `AvatarController.upload()`
+
+**Applicable conventions:** [The architectural rules from the spec or codebase this task must
+respect — the existing repository pattern it follows, not a new one]
+
 **Estimated scope:** [Small: 1-2 files | Medium: 3-5 files | Large: 5+ files]
 ```
+
+**Tasks must be atomic.** A task names one concrete unit of work, not a layer of the system:
+
+```
+✗ "Build the backend"
+✗ "Add avatar support"
+✓ "Create AvatarController with the POST /avatars/upload endpoint"
+✓ "Add the avatar_url column to users, with the up and down migration"
+```
+
+If you cannot name the file and the function, the task is not broken down far enough yet.
+
+**Plan only what was asked.** The plan is derived entirely from the spec and the codebase. Do not
+invent features, add scope, or design for requirements nobody stated — an unrequested task in the
+plan becomes unrequested code in the diff.
 
 ### Step 5: Order and Checkpoint
 
@@ -111,6 +131,21 @@ Arrange tasks so that:
 2. Each task leaves the system in a working state
 3. Verification checkpoints occur after every 2-3 tasks
 4. High-risk tasks are early (fail fast)
+
+Where the work spans layers, this ordering satisfies dependencies by default — adapt it to the
+project's architecture rather than applying it blindly:
+
+```
+1. Setup and dependencies      (new packages, config, scaffolding)
+2. Database and schema         (migrations, models — expand before contract)
+3. Core logic / domain layer   (business rules, pure logic)
+4. API / controller layer      (endpoints, handlers, serialization)
+5. UI / presentation layer     (components, screens, state wiring)
+6. Tests                       (written alongside each layer, not deferred to the end)
+```
+
+Tests appear last in the list only because they span the others. Each task carries its own test
+work — a plan where testing is a single trailing task is a plan that will ship untested.
 
 Add explicit checkpoints to the task list target:
 
