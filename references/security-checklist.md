@@ -414,7 +414,9 @@ can modify anything running on their machine.
       communication data minimized to what the feature requires
 - [ ] Nothing sensitive sent to analytics, telemetry, advertising, error trackers, logging vendors,
       or third-party AI services without explicit authorization
-- [ ] Data-deletion and export paths exist where regulation requires them
+- [ ] Personal data is classified, collected against a stated purpose, and minimized
+- [ ] Personal data has a retention limit and a working deletion path (incl. backups, caches, indexes)
+- [ ] Export/delete (data-subject) requests are supported where required; third-party sharing has consent and a data-processing agreement
 
 ## Caching Security
 
